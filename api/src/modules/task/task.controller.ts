@@ -13,10 +13,10 @@ import { TaskService } from './task.service';
 @Controller('tasks')
 @ApiExtraModels(ApiUnauthorizedResponse, NotFoundException)
 @ApiErrorResponse(UnAuthorizedResponse)
-@ApiErrorResponse(NotFoundResponse)  
+@ApiErrorResponse(NotFoundResponse)
 export class TaskController {
   constructor(private readonly _taskService: TaskService) { }
-  
+
   @Post()
   @ApiExtraModels(CreatedResponse, TaskResponseDto)
   @ApiSuccessResponse(CreatedResponse, TaskResponseDto)
@@ -25,7 +25,7 @@ export class TaskController {
     responseData = await this._taskService.createTask(param);
     return new CreatedResponse(responseData);
   }
-    
+
   @Get()
   @ApiExtraModels(OkResponse, TasksResponseDto)
   @ApiSuccessResponse(OkResponse, TasksResponseDto)
@@ -40,7 +40,7 @@ export class TaskController {
   @Get(':taskId')
   @ApiExtraModels(OkResponse, TaskResponseDto)
   @ApiSuccessResponse(OkResponse, TaskResponseDto)
-  async findTask(@Param('taskId') taskId): Promise<CommonResponse> {
+  async findTask(@Param('taskId') taskId: number): Promise<CommonResponse> {
     let responseData: ;
     responseData = await this._taskService.findTask(taskId);
     return new OkResponse(responseData);
@@ -50,7 +50,7 @@ export class TaskController {
   @ApiExtraModels(OkResponse, TaskResponseDto)
   @ApiSuccessResponse(OkResponse, TaskResponseDto)
   async updateTask(
-    @Param('taskId') taskId,
+    @Param('taskId') taskId: number,
     @Body() param: updateTaskRequestDto,
   ): Promise<CommonResponse> {
     let responseData: ;
@@ -61,7 +61,7 @@ export class TaskController {
   @Delete(':taskId')
   @ApiExtraModels(OkResponse, DeletedResult)
   @ApiSuccessResponse(OkResponse, DeletedResult)
-  async delteTask(@Param('taskId') taskId: Promise<CommonResponse> {
+  async delteTask(@Param('taskId') taskId: number): Promise<CommonResponse> {
     let responseData: ;
     responseData = await this._taskService.deleteTask(taskId);
     return new OkResponse(responseData);

@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { number } from 'joi';
 import { DeletedResult } from 'src/common/types/response';
 import { TaskRepository } from 'src/ripositories/task.repository';
 import { DeleteResult } from 'typeorm';
@@ -13,7 +14,7 @@ export class TaskService implements ITaskService {
   constructor(private readonly _taskRepository: TaskRepository) { }
   
   //task作成処理
-  async createTask(param: createTaskRequestDto):  {
+  async createTask(param: createTaskRequestDto): {
     const newTask = this._taskRepository.create(param);
     if (!newTask) throw new NotFoundException();
     const task = await this._taskRepository.save(newTask);
@@ -28,7 +29,7 @@ export class TaskService implements ITaskService {
   }
 
   //task1件取得処理
-  async findTask(taskId: ):  {
+  async findTask(taskId: number):  {
     const task = await this._taskRepository.findOne(taskId);
     if (!task) throw new NotFoundException();
     return { task }
@@ -36,7 +37,7 @@ export class TaskService implements ITaskService {
 
 
   //task更新処理
-  async updateTask(taskId: , param: updateTaskRequestDto):  {
+  async updateTask(taskId: number, param: updateTaskRequestDto):  {
     const origin = await this._taskRepository.findOne(taskId);
     if (!origin) throw new NotFoundException();
     const task = await this._taskRepository.save({ ...origin, ...param });
@@ -44,7 +45,7 @@ export class TaskService implements ITaskService {
   }
 
   //特定のtaskの削除
-  async deleteTask(taskId: ): Promise<DeleteResult> {
+  async deleteTask(taskId: number): Promise<DeleteResult> {
     const result = await this._taskRepository.delete(taskId);
     if (result.affected === 0) throw new NotFoundException();
     return result;
