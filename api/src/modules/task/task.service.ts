@@ -31,7 +31,7 @@ export class TaskService implements ITaskService {
 
   //task1件取得処理
   async findTask(taskId: number): Promise<TaskResponseDto> {
-    const task: Task | undefined = await this._taskRepository.findOne(taskId);
+    const task = await this._taskRepository.findOne(taskId);
     if (!task) throw new NotFoundException();
     return { task };
   }
@@ -41,9 +41,9 @@ export class TaskService implements ITaskService {
     taskId: number,
     param: updateTaskRequestDto,
   ): Promise<TaskResponseDto> {
-    const origin: Task | undefined = await this._taskRepository.findOne(taskId);
+    const origin = await this._taskRepository.findOne(taskId);
     if (!origin) throw new NotFoundException();
-    const task: TaskResponseDto & Task = await this._taskRepository.save({
+    const task = await this._taskRepository.save({
       ...origin,
       ...param,
     });
@@ -52,7 +52,7 @@ export class TaskService implements ITaskService {
 
   //特定のtaskの削除
   async deleteTask(taskId: number): Promise<DeleteResult> {
-    const result: DeleteResult = await this._taskRepository.delete(taskId);
+    const result = await this._taskRepository.delete(taskId);
     if (result.affected === 0) throw new NotFoundException();
     return result;
   }
