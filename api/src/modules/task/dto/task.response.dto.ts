@@ -1,11 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Task } from '../../../database/entities/task.entity';
 
 export class TaskResponseDto {
   // Apiのレスポンスとして存在していないといけないデータ
   @ApiProperty()
-  id: number;
-  title: string;
-  status: number;
-  createdAt: Date;
-  updatedAt: Date;
+  task: Task;
 }
