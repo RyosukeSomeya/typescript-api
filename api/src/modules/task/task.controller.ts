@@ -23,8 +23,8 @@ export class TaskController {
   async createTask(
     @Body() param: createTaskRequestDto,
   ): Promise<CommonResponse> {
-    // let responseData: TaskResponseDto;
-    const responseData = await this._taskService.createTask(param);
+    let responseData: TaskResponseDto;
+    responseData = await this._taskService.createTask(param);
     return new CreatedResponse(responseData);
   }
 
@@ -32,6 +32,7 @@ export class TaskController {
   @ApiExtraModels(OkResponse, TasksResponseDto)
   @ApiSuccessResponse(OkResponse, TasksResponseDto)
   async getTasks(): Promise<CommonResponse> {
+    // eslintでever reassignedエラーが出るため修正しています
     // let responseData: TasksResponseDto;
     const responseData = await this._taskService.getTasks();
     return new OkResponse(responseData);
@@ -41,6 +42,7 @@ export class TaskController {
   @ApiExtraModels(OkResponse, TaskResponseDto)
   @ApiSuccessResponse(OkResponse, TaskResponseDto)
   async findTask(@Param('taskId') taskId: number): Promise<CommonResponse> {
+    // eslintでever reassignedエラーが出るため修正しています
     // let responseData: TaskResponseDto;
     const responseData = await this._taskService.findTask(taskId);
     return new OkResponse(responseData);
@@ -53,6 +55,7 @@ export class TaskController {
     @Param('taskId') taskId: number,
     @Body() param: updateTaskRequestDto,
   ): Promise<CommonResponse> {
+    // eslintでever reassignedエラーが出るため修正しています
     // let responseData: TaskResponseDto;
     const responseData = await this._taskService.updateTask(taskId, param);
     return new OkResponse(responseData);
@@ -62,6 +65,7 @@ export class TaskController {
   @ApiExtraModels(OkResponse, DeletedResult)
   @ApiSuccessResponse(OkResponse, DeletedResult)
   async delteTask(@Param('taskId') taskId: number): Promise<CommonResponse> {
+    // eslintでever reassignedエラーが出るため修正しています
     // let responseData: DeleteResult;
     const responseData = await this._taskService.deleteTask(taskId);
     return new OkResponse(responseData);
