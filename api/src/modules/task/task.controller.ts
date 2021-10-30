@@ -1,7 +1,27 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
-import {  ApiExtraModels, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import {
+  ApiExtraModels,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { ApiErrorResponse, ApiSuccessResponse } from 'src/common/decoraters';
-import { CommonResponse, CreatedResponse, DeletedResult, NotFoundResponse, OkResponse, UnAuthorizedResponse } from 'src/common/types/response';
+import {
+  CommonResponse,
+  CreatedResponse,
+  DeletedResult,
+  NotFoundResponse,
+  OkResponse,
+  UnAuthorizedResponse,
+} from 'src/common/types/response';
 import { DeleteResult } from 'typeorm';
 import { createTaskRequestDto } from './dto/create-task.request.dto';
 import { TaskResponseDto } from './dto/task.response.dto';
@@ -23,8 +43,9 @@ export class TaskController {
   async createTask(
     @Body() param: createTaskRequestDto,
   ): Promise<CommonResponse> {
-    let responseData: TaskResponseDto;
-    responseData = await this._taskService.createTask(param);
+    // eslintでever reassignedエラーが出るため修正しています
+    // let responseData: TaskResponseDto;
+    const responseData = await this._taskService.createTask(param);
     return new CreatedResponse(responseData);
   }
 
