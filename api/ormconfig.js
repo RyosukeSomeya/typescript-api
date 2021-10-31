@@ -1,22 +1,16 @@
 module.exports = {
-  type: "mysql",
+  type: 'mysql',
   host: 'db',
   port: 3306,
-  username: 'root',
+  username: 'user',
   password: 'root',
   database: 'sample',
   logging: false,
-  entities: [
-    'dist/**/entities/*.entity.js'
-  ],
-  migrations: [
-      "dist/database/migrations/**/*.js"
-  ],
-  subscribers: [
-      "src/subscriber/**/*.ts"
-  ],
+  entities: ['dist/**/entities/*.entity.js'],
+  migrations: ['dist/database/migrations/**/*.js'],
+  subscribers: ['src/subscriber/**/*.ts'],
   cli: {
     entitiesDir: 'src/entities',
-    migrationsDir: "src/database/migrations",
-  }
+    migrationsDir: 'src/database/migrations',
+  },
 };
